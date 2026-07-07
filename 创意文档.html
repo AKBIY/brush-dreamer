@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画笔造梦师 - TRAE AI 创造力大赛报名帖</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .document {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+        .banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+        }
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .banner-content { position: relative; z-index: 1; }
+        .banner h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+        .banner .tagline {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        .track-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .content { padding: 40px; }
+        .section {
+            margin-bottom: 40px;
+            background: #fafbfc;
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid #e8eef3;
+        }
+        .section:last-child { margin-bottom: 0; }
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #667eea;
+        }
+        .section-title::before {
+            content: '';
+            width: 8px;
+            height: 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 4px;
+            margin-right: 12px;
+        }
+        .sub-section {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+        .sub-section:last-child { margin-bottom: 0; }
+        .sub-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .sub-section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e8eef3;
+            margin-left: 15px;
+        }
+        .sub-section-content {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.8;
+            padding-left: 15px;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #f0f4ff 0%, #fef0ff 100%);
+            border: 2px dashed #667eea;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        .highlight-box h4 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+        .highlight-box h4::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #764ba2;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .highlight-box p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        .highlight-box ul {
+            margin-left: 20px;
+            color: #555;
+        }
+        .highlight-box li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 15px;
+        }
+        .highlight-box li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #e8eef3;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+        }
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        .feature-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .feature-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+        .mvp-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+        .mvp-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .mvp-table td {
+            padding: 15px;
+            border-bottom: 1px solid #f0f2f5;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .mvp-table tr:last-child td { border-bottom: none; }
+        .mvp-table tr:hover { background: #fafbfc; }
+        .footer {
+            background: #f5f7fa;
+            padding: 30px 40px;
+            text-align: center;
+            border-top: 1px solid #e8eef3;
+        }
+        .footer p {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .footer .competition {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        .value-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        .value-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .value-content h4 {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .value-content p {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        .user-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .user-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #e8eef3;
+            text-align: center;
+        }
+        .user-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .user-desc {
+            font-size: 13px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="document">
+        <div class="banner">
+            <div class="banner-content">
+                <h1>画笔造梦师</h1>
+                <p class="tagline">用你的画笔，创造游戏世界</p>
+                <span class="track-badge">🏆 TRAE AI 创造力大赛 · 生活娱乐赛道</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <div class="section-title">一、创意概述</div>
+                
+                <div class="sub-section">
+                    <div class="sub-section-title">🎯 想解决什么问题？</div>
+                    <div class="sub-section-content">
+                        很多人有画画天赋和游戏创意，却因为不懂编程而无法将想法变成可玩的游戏。市面上的AI绘画工具只能生成静态图片，无法形成从创作到使用的闭环。学生和业余创作者需要一个低门槛、有趣的方式来实现自己的游戏梦想。
+                    </div>
+                </div>
+
+                <div class="sub-section">
+                    <div class="sub-section-title">💡 为什么会想到做这个？</div>
+                    <div class="sub-section-content">
+                        我喜欢画画和游戏，经常想把自己画的角色做成游戏，但学习编程的门槛太高。看到AI技术的发展，我想如果能让AI帮忙把绘画变成游戏素材，再提供简单的编辑工具，普通人也能创造游戏，这会是一件很酷的事。
+                    </div>
+                </div>
+
+                <div class="sub-section">
+                    <div class="sub-section-title">📦 大概是什么产品？</div>
+                    <div class="sub-section-content">
+                        一个网页应用，支持手绘草图转游戏素材、多人实时绘画对战、零代码游戏场景编辑，打造设计与游戏创作一体化的平台。
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">二、目标用户及痛点</div>
+                
+                <div class="sub-section">
+                    <div class="sub-section-title">👥 面向哪些用户？</div>
+                    <div class="user-list">
+                        <div class="user-item">
+                            <div class="user-icon">🎒</div>
+                            <div class="user-name">学生群体</div>
+                            <div class="user-desc">喜欢画画、想创作游戏但缺乏编程经验</div>
+                        </div>
+                        <div class="user-item">
+                            <div class="user-icon">🎨</div>
+                            <div class="user-name">业余创作者</div>
+                            <div class="user-desc">有游戏创意但受技术限制的绘画爱好者</div>
+                        </div>
+                        <div class="user-item">
+                            <div class="user-icon">🎮</div>
+                            <div class="user-name">游戏开发者</div>
+                            <div class="user-desc">需要快速生成素材原型的独立开发者</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sub-section">
+                    <div class="sub-section-title">📍 在什么场景下使用？</div>
+                    <div class="sub-section-content">
+                        <ul style="margin-left: 20px;">
+                            <li><strong>课余时间</strong>：学生在宿舍或教室用电脑创作</li>
+                            <li><strong>兴趣活动</strong>：绘画爱好者参加线上创作比赛</li>
+                            <li><strong>开发初期</strong>：独立开发者快速生成游戏素材原型</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="sub-section">
+                    <div class="sub-section-title">❌ 当前痛点</div>
+                    <div class="sub-section-content">
+                        <ul style="margin-left: 20px;">
+                            <li>想做游戏但不会编程，学习成本高</li>
+                            <li>AI绘画工具只能生成图片，无法直接用于游戏</li>
+                            <li>缺乏简单有趣的游戏创作工具，入门困难</li>
+                            <li>画画过程枯燥，缺乏互动和反馈</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">三、核心功能设计</div>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <div class="feature-title">AI草图转游戏素材</div>
+                        <div class="feature-desc">手绘角色/场景/道具草图，AI自动生成多种风格的游戏可用素材，支持像素风、卡通、动漫、赛博朋克等风格切换</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚔️</div>
+                        <div class="feature-title">多人实时绘画对战</div>
+                        <div class="feature-desc">2-4人实时对战，AI出题后限时90秒绘画，AI智能评分，展示作品并支持投票，生成对战回放</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎮</div>
+                        <div class="feature-title">可视化游戏场景编辑</div>
+                        <div class="feature-desc">提供多种游戏模板，支持拖放素材，可视化设置碰撞区域和触发事件，预览游戏效果并导出</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📖</div>
+                        <div class="feature-title">影视剧本可视化</div>
+                        <div class="feature-desc">输入剧本大纲，AI自动生成分镜脚本，选择场景描述生成概念图，调整镜头角度和构图</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">四、用户留存机制</div>
+                
+                <div class="highlight-box">
+                    <h4>🏆 成就系统与奖励机制</h4>
+                    <p>设置不同难度等级的成就，结合创作和社交行为：</p>
+                    <ul>
+                        <li><strong>创作成就</strong>：生成第1个素材、完成第1个游戏、发布第1个作品等</li>
+                        <li><strong>对战成就</strong>：获得第1次胜利、连胜5场、创意评分达到S级等</li>
+                        <li><strong>社交成就</strong>：邀请好友、获得100个点赞、加入社区讨论等</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>👥 社区交流平台</h4>
+                    <p>建立社区让用户分享作品、交流创意：</p>
+                    <ul>
+                        <li><strong>作品展示</strong>：用户可以展示自己的游戏作品和绘画作品</li>
+                        <li><strong>创意交流</strong>：讨论游戏设计思路、绘画技巧</li>
+                        <li><strong>自定义打卡</strong>：设置创作打卡提醒，养成创作习惯</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">五、差异化优势</div>
+                
+                <div class="sub-section">
+                    <div class="sub-section-title">🎯 设计创作一体化</div>
+                    <div class="sub-section-content">
+                        与Roblox、Scratch等平台最大的区别在于：我们实现了从绘画创作到游戏生成的完整闭环，用户不需要离开平台就能完成从设计到创作的全过程，真正做到"用画笔创造游戏"。
+                    </div>
+                </div>
+
+                <div class="sub-section">
+                    <div class="sub-section-title">🤖 AI驱动的素材生成</div>
+                    <div class="sub-section-content">
+                        利用AI技术将用户手绘草图直接转化为游戏可用素材，解决了传统游戏开发中素材制作耗时费力的痛点，大幅降低创作门槛。
+                    </div>
+                </div>
+
+                <div class="sub-section">
+                    <div class="sub-section-title">🎨 互动性与趣味性</div>
+                    <div class="sub-section-content">
+                        通过多人实时绘画对战增加趣味性，让创作过程不再枯燥，同时通过成就系统和社区互动增强用户粘性。
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">六、价值与意义</div>
+                
+                <div class="value-item">
+                    <div class="value-icon">⏰</div>
+                    <div class="value-content">
+                        <h4>效率提升</h4>
+                        <p>将游戏素材制作时间从数天缩短到几分钟，让创作者专注于创意而非技术实现。零代码编辑器降低游戏开发门槛，让更多人能实现自己的游戏梦想。</p>
+                    </div>
+                </div>
+
+                <div class="value-item">
+                    <div class="value-icon">💡</div>
+                    <div class="value-content">
+                        <h4>社会价值</h4>
+                        <p>激发青少年的创造力和想象力，通过游戏化的方式培养编程思维和设计能力。为传统文化、非遗等内容提供新的传播载体，让更多人通过游戏了解和喜爱传统文化。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">七、MVP实现规划</div>
+                
+                <table class="mvp-table">
+                    <thead>
+                        <tr>
+                            <th>阶段</th>
+                            <th>时间</th>
+                            <th>核心任务</th>
+                            <th>产出</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>第一阶段</strong></td>
+                            <td>1-2周</td>
+                            <td>项目初始化、Canvas画板、AI图像生成集成、素材库展示</td>
+                            <td>草图上传→风格化生成的核心功能</td>
+                        </tr>
+                        <tr>
+                            <td><strong>第二阶段</strong></td>
+                            <td>3-4周</td>
+                            <td>多人房间系统、实时绘画同步、AI评分系统、对战结果展示</td>
+                            <td>2-4人实时对战功能</td>
+                        </tr>
+                        <tr>
+                            <td><strong>第三阶段</strong></td>
+                            <td>5-6周</td>
+                            <td>游戏模板系统、场景编辑器、简单游戏逻辑、游戏预览导出</td>
+                            <td>零代码游戏创作功能</td>
+                        </tr>
+                        <tr>
+                            <td><strong>第四阶段</strong></td>
+                            <td>7-8周</td>
+                            <td>剧本分镜生成、场景概念图、UI/UX优化、部署上线</td>
+                            <td>完整产品上线</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p class="competition">TRAE AI 创造力大赛 · 生活娱乐赛道</p>
+            <p>创意名称：画笔造梦师 - AI驱动的游戏创作平台</p>
+            <p style="margin-top: 10px; font-size: 13px; color: #aaa;">用你的画笔，创造游戏世界</p>
+        </div>
+    </div>
+</body>
+</html>
